@@ -4,6 +4,7 @@ import requests
 from typing import List, Dict
 from visualisations import vibe_calculator
 import functools
+import os
 
 # Set up colors
 BLACK = (50,60,73)	
@@ -168,7 +169,9 @@ def create_poster(username, movie_df, year, top3_movies):
     # Add footer
     draw.text((width//2, height - 100), "Created with Letterboxd-BI", fill=BLACK, font=font_text, anchor="mm")
     # add qr code to the footer
-    qr_code = Image.open("static/qr_code.png")
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    qr_code = Image.open(os.path.join(base_dir, '..', 'static/qr_code.png'))
+
     qr_code = qr_code.resize((100, 100))
     image.paste(qr_code, (width - 150, height - 150))
 
