@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[co
+
+# Environment variables
+.env
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb
+
+# Font files
+*.ttf

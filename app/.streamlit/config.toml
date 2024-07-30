@@ -1,0 +1,5 @@
+[theme]
+primaryColor = "#ef8833"  # Letterboxd orange
+backgroundColor = "#14181c"  # Letterboxd dark background
+secondaryBackgroundColor = "#323c49"  # Letterboxd secondary background
+textColor = "#ffffff"  # White text
