@@ -133,7 +133,8 @@ def create_movie_thumbnails(movie_df: pd.DataFrame, caption: Optional[str] = Non
     return [
         {
             'image': record['poster_url'],
-            'caption': caption if caption in ['First Film', 'Last Film'] else rating_to_stars(record['memberRating'])
+            'caption': caption if caption in ['First Film', 'Last Film'] else rating_to_stars(record['memberRating']),
+            'title': record['title']
         }
         for record in records
     ]

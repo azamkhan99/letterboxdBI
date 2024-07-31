@@ -105,7 +105,16 @@ def create_poster(username, movie_df, year, top3_movies):
         y_position = 360
 
         # Add poster
-        poster = Image.open(requests.get(movie['image'], stream=True).raw).resize(poster_size)
+        try:
+            poster = Image.open(requests.get(movie['image'], stream=True).raw).resize(poster_size)
+        except:
+            poster = Image.new('RGB', poster_size, ORANGE)
+            # poster text in middle of poster
+            poster_draw = ImageDraw.Draw(poster)
+            # Draw text on the poster
+            poster_text_position = (poster_size[0] // 2, poster_size[1] // 2)
+            poster_draw.text(poster_text_position, movie['title'], fill=WHITE, font=font_small, anchor="mm")
+
         rounded_poster = add_rounded_corners(poster, radius=30)
         image.paste(rounded_poster, (x_position - poster_size[0]//2, y_position), rounded_poster)
         

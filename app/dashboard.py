@@ -95,14 +95,15 @@ def display_dashboard(username, movie_df, current_year, top3):
     col1, col2, col3 = st.columns([1, 7, 1])
     with col1:
         first_movie = first_log(movie_df)
-        st.image(**first_movie[0], width=110)
+        st.image(first_movie[0]['image'], first_movie[0]['caption'], width=110)
     with col2:
         st.html(f"<h1 style='text-align: center; color: #e0edfd;'>{current_year}<br>{username}'s Year in Film</h1>")
         if st.button("Generate Story", use_container_width=True, key="generate_story_button_through_dashboard"):
             generate_story(username, movie_df, current_year, top3)
     with col3:
         recent_movie = most_recent_log(movie_df)
-        st.image(**recent_movie[0], width=110)
+        print(recent_movie)
+        st.image(recent_movie[0]['image'], recent_movie[0]['caption'], width=110)
 
     col1, col2, col3, col4 = st.columns(4)
     with col1:
