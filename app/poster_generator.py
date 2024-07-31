@@ -167,7 +167,7 @@ def create_poster(username, movie_df, year, top3_movies):
     draw.text((width // 2, top_margin + 660), vibe, font=font_highlights, fill=BLACK)
 
     # Add footer
-    draw.text((width//2, height - 100), "Created with Letterboxd-BI", fill=BLACK, font=font_text, anchor="mm")
+    draw.text((width//2, height - 100), "https://tinyurl.com/letterboxdbi", fill=BLACK, font=font_text, anchor="mm")
     # add qr code to the footer
     base_dir = os.path.dirname(os.path.abspath(__file__))
     qr_code = Image.open(os.path.join(base_dir, '..', 'static/qr_code.png'))
