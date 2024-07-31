@@ -1,16 +1,15 @@
 import streamlit as st
-from movie_data import get_movie_data_from_rss_feed
+from app.movie_data import get_movie_data_from_rss_feed
 from datetime import datetime
 from streamlit_extras.stylable_container import stylable_container
-from visualisations import (
+from app.visualisations import (
     num_entries_kpi, num_hours_watched, bar_chart, get_top3_movies,
     num_reviews_kpi, most_recent_log, first_log, num_new_movies_watched_kpi,
     get_treemap_of_genres_movies_watched, english_foreign_language_pie_chart,
 )
 from st_social_media_links import SocialMediaIcons
-from poster_generator import create_poster
+from app.poster_generator import create_poster
 
-st.set_page_config(page_title="Letterboxd Dashboard", page_icon="🎬", layout="wide")
 
 @st.cache_data
 def load_data(year, username):
@@ -30,13 +29,14 @@ def generate_story(username, movie_df, current_year, top3):
         st.download_button(
             label="Download Story",
             data=poster_bytes,
-            file_name=f"letterboxd_year_in_review_{current_year}.png",
+            file_name=f"{username}s_{current_year}_in_film.png",
             mime="image/png",
             use_container_width=True
         )
         
 
 def set_page_style():
+    st.set_page_config(page_title="my year in film", page_icon="🎬", layout="wide")
     st.markdown("""
     <style>
         .block-container {
@@ -133,10 +133,11 @@ def display_dashboard(username, movie_df, current_year, top3):
     
 
 def main():
+    # set_page_style()
     if 'clicked' not in st.session_state:
         st.session_state.clicked = False
 
-    set_page_style()
+    # set_page_style()
     text_input_container = st.empty()
     
     username, submit_button1, submit_button2 = create_username_form(text_input_container)
@@ -153,7 +154,6 @@ def main():
     if st.session_state.clicked:
         text_input_container.empty()
         # disclaimer_container.empty()
-        set_page_style()
         current_year = datetime.now().year
         movie_df = load_data(current_year, username)
         top3 = get_top3_movies(movie_df)
@@ -161,5 +161,5 @@ def main():
 
     display_social_media_links()
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 import io
 import requests
 from typing import List, Dict
-from visualisations import vibe_calculator
+from app.visualisations import vibe_calculator
 import functools
 import os
 
