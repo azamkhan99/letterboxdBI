@@ -146,7 +146,7 @@ def create_poster(username, movie_df, year, top3_movies):
     
     num_films = top3_genres.values.astype(str)
 
-    for i in range(3):
+    for i in range(len(num_films)):
         draw.text((left_margin, top_margin + 350 + i*60), f"{genres[i]}", font=font_small, fill=BLACK)
         bbox_label = draw.textbbox((0, 0), num_films[i], font=font_small)
         text_width_label = bbox_label[2] - bbox_label[0]

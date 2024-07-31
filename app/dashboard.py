@@ -76,7 +76,7 @@ def display_top3_movies(top3):
             """,
     ):
         st.markdown("<h6 style='text-align: left; color: white;'>TOP 3 MOVIES</h6>", unsafe_allow_html=True)
-        cols = st.columns(len(top3))
+        cols = st.columns(3)
         for col, movie in zip(cols, top3):
             with col:
                 st.image(movie["image"], caption=movie["caption"], use_column_width=True)
@@ -156,6 +156,7 @@ def main():
         # disclaimer_container.empty()
         current_year = datetime.now().year
         movie_df = load_data(current_year, username)
+        
         top3 = get_top3_movies(movie_df)
         display_dashboard(username, movie_df, current_year, top3)
 

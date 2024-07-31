@@ -18,16 +18,36 @@ def fetch_rss_feed(url):
     response.raise_for_status()
     return ET.fromstring(response.text)
 
-        
+# def parse_movie_data(item):
+#     title = item.find('letterboxd:filmTitle', NAMESPACES).text
+#     description = BeautifulSoup(item.find('description').text, 'html.parser').find_all('p')[1].get_text()
+#     return {
+#     'title': title,
+#     'logDate': item.find('letterboxd:watchedDate', NAMESPACES).text,
+#     'memberRating': item.find('letterboxd:memberRating', NAMESPACES).text,
+#     'tmdb_id': item.find('tmdb:movieId', NAMESPACES).text or item.find('tmdb:tvId', NAMESPACES).text,
+#     'description': description
+#     } 
 
 def parse_movie_data(item):
-    title = item.find('letterboxd:filmTitle', NAMESPACES).text
-    description = BeautifulSoup(item.find('description').text, 'html.parser').find_all('p')[1].get_text()
+    title = item.find('letterboxd:filmTitle', NAMESPACES)
+    title = title.text if title is not None else None
+    description = item.find('description')
+    description = BeautifulSoup(description.text, 'html.parser').find_all('p')[1].get_text() if description is not None else None
+    log_date = item.find('letterboxd:watchedDate', NAMESPACES)
+    log_date = log_date.text if log_date is not None else None
+    member_rating = item.find('letterboxd:memberRating', NAMESPACES)
+    member_rating = member_rating.text if member_rating is not None else None
+    tmdb_id = item.find('tmdb:movieId', NAMESPACES)
+    tmdb_id = tmdb_id.text if tmdb_id is not None else None
+    if tmdb_id is None:
+        tmdb_id = item.find('tmdb:tvId', NAMESPACES)
+        tmdb_id = tmdb_id.text if tmdb_id is not None else None
     return {
         'title': title,
-        'logDate': item.find('letterboxd:watchedDate', NAMESPACES).text,
-        'memberRating': item.find('letterboxd:memberRating', NAMESPACES).text,
-        'tmdb_id': item.find('tmdb:movieId', NAMESPACES).text,
+        'logDate': log_date,
+        'memberRating': member_rating,
+        'tmdb_id': tmdb_id,
         'description': description
     }
 
